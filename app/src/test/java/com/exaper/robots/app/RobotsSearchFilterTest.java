@@ -36,7 +36,7 @@ public class RobotsSearchFilterTest {
 
     @Test
     public void testNoMatchesFilter() {
-        filter.setConstraint("Droid");
+        filter.setConstraint("Human");
         List<Robot> filteredRobots = filter.filter(testRobots);
         // No robots should make it through filter.
         assertThat(filteredRobots.size(), is(0));

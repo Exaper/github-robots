@@ -1,12 +1,16 @@
 #Github Robots application demo
 ![logo](http://robohash.org/robots.png?size=200x200)
 
+[![Build Status](https://travis-ci.org/Exaper/github-robots.svg?branch=master)](https://travis-ci.org/Exaper/github-robots)
+
 ## Key features
-1. [Material Design](https://www.google.com/design/spec/material-design/introduction.html) Guidelines compliant
-2. [Dagger 2](http://google.github.io/dagger/) Dependency Injection for components decoupling and testing
-3. [Retrofit](http://square.github.io/retrofit/) for network calls + json parsing
-3. [Espresso](https://code.google.com/p/android-test-kit/wiki/Espresso) for Instrumentation testing
-4. [Android JUnit](http://tools.android.com/tech-docs/unit-testing-support) for Unit testing.
+1. Material Design [guidelines](https://www.google.com/design/spec/material-design/introduction.html) compliant
+2. Dependency Injection with [Dagger 2](http://google.github.io/dagger/)
+3. Network calls + JSON parsing via [Retrofit](http://square.github.io/retrofit/)
+3. Instrumentation Testing with [Espresso](https://code.google.com/p/android-test-kit/wiki/Espresso)
+4. Unit Testing with [Android JUnit](http://tools.android.com/tech-docs/unit-testing-support)
+5. [Gradle-based](http://tools.android.com/tech-docs/new-build-system) build system
+5. Continious integration with [Travis CI](https://travis-ci.org/Exaper/github-robots)
 
 ## Setup instructions
 1. Import project into Android Studio (make sure to have latest build and updated Android SDK installed)

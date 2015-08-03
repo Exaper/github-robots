@@ -1,44 +1,46 @@
 package com.exaper.robots.test;
 
-import android.test.ActivityInstrumentationTestCase2;
+import android.app.Activity;
+import android.support.test.rule.ActivityTestRule;
+import android.support.test.runner.AndroidJUnit4;
 
+import com.exaper.robots.EspressoRobotsApplication;
+import com.exaper.robots.R;
 import com.exaper.robots.RobotsCatalogActivity;
 import com.exaper.robots.test.util.EspressoUtil;
 import com.squareup.okhttp.mockwebserver.MockResponse;
-import com.squareup.okhttp.mockwebserver.MockWebServer;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
-public class RobotsCatalogActivityTest extends ActivityInstrumentationTestCase2<RobotsCatalogActivity> {
-    private MockWebServer mWebServer;
+@RunWith(AndroidJUnit4.class)
+public class RobotsCatalogActivityTest {
+    @Rule
+    public final ActivityTestRule<RobotsCatalogActivity> activityRule = new ActivityTestRule<>(
+            RobotsCatalogActivity.class,
+            true,     // initialTouchMode
+            false);   // launchActivity. False so we can customize the intent per test method
 
-    public RobotsCatalogActivityTest() {
-        super(RobotsCatalogActivity.class);
+    @Test
+    public void testEmptyTestDisplayed() {
+        EspressoRobotsApplication.get().getMockWebServer().enqueue(new MockResponse().setResponseCode(500));
+        Activity activity = activityRule.launchActivity(null);
+        String pullToRefreshText = activity.getString(R.string.pull_to_refresh_hint);
+        onView(withText(pullToRefreshText)).check(matches(isDisplayed()));
     }
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        String mockResponse = EspressoUtil.stringFromRawResource(getInstrumentation().getContext(), R.raw.robots);
-        mWebServer = new MockWebServer();
-        mWebServer.enqueue(new MockResponse().setBody(mockResponse));
-        mWebServer.start();
-        EspressoUtil.registerWebServer(getInstrumentation().getTargetContext(), mWebServer);
-        getActivity();
-    }
-
+    @Test
     public void testRobotNamesDisplayed() {
+        String mockResponse = EspressoUtil.stringFromRawResource(com.exaper.robots.test.R.raw.robots);
+        EspressoRobotsApplication.get().getMockWebServer().enqueue(new MockResponse().setBody(mockResponse));
+        activityRule.launchActivity(null);
         for (String name : new String[]{"torvalds", "mojombo", "paulirish"}) {
             onView(withText(name)).check(matches(isDisplayed()));
         }
-    }
-
-    @Override
-    protected void tearDown() throws Exception {
-        mWebServer.shutdown();
-        super.tearDown();
     }
 }

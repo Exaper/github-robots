@@ -65,13 +65,8 @@ public class RobotsCatalogActivity extends AppCompatActivity implements Callback
         mRobotsAdapter = new RobotsAdapter(this, mLoginToRobotImageConverter);
         mRobotsAdapter.setItemClickListener(this);
         recyclerView.setAdapter(mRobotsAdapter);
-        // Swipe refresh needs to measure itself first.
-        mSwipeRefreshLayout.post(new Runnable() {
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(true);
-            }
-        });
         mPullToRefreshText.setVisibility(View.INVISIBLE);
+        mSwipeRefreshLayout.setRefreshing(true);
         mDataService.getRobots(this);
     }
 
@@ -135,8 +130,8 @@ public class RobotsCatalogActivity extends AppCompatActivity implements Callback
                 .setAction(R.string.try_again, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mDataService.getRobots(RobotsCatalogActivity.this);
                         mSwipeRefreshLayout.setRefreshing(true);
+                        mDataService.getRobots(RobotsCatalogActivity.this);
                     }
                 })
                 .show();

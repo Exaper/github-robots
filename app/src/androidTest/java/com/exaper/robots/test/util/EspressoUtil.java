@@ -2,6 +2,7 @@ package com.exaper.robots.test.util;
 
 import android.content.Context;
 import android.support.annotation.RawRes;
+import android.support.test.InstrumentationRegistry;
 
 import com.exaper.robots.EspressoRobotsApplication;
 import com.exaper.robots.RobotsApplication;
@@ -13,13 +14,8 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 public class EspressoUtil {
-    public static void registerWebServer(Context context, MockWebServer webServer) {
-        EspressoRobotsApplication application = (EspressoRobotsApplication) RobotsApplication.get(context);
-        EspressoNetworkModule networkModule = application.getNetworkModule();
-        networkModule.setBaseUrl(webServer.getUrl("").toString());
-    }
-
-    public static String stringFromRawResource(Context context, @RawRes int resourceId) {
+    public static String stringFromRawResource(@RawRes int resourceId) {
+        Context context = InstrumentationRegistry.getInstrumentation().getContext();
         InputStream raw = context.getResources().openRawResource(resourceId);
         Scanner scanner = new Scanner(raw).useDelimiter("\\A");
         String out = scanner.hasNext() ? scanner.next() : "";
