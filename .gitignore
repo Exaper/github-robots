@@ -2,6 +2,10 @@
 *.apk
 *.ap_
 
+# Android Studio files
+.idea/
+*.iml
+
 # Files for the Dalvik VM
 *.dex
 

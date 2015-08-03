@@ -1,0 +1,9 @@
+<resources>
+    <!-- Everything is in 8dp rhythm per the Material Design guidelines -->
+    <dimen name="padding">8dp</dimen>
+    <!-- For typography padding-->
+    <dimen name="padding_half">4dp</dimen>
+    <dimen name="padding_2x">16dp</dimen>
+    <dimen name="padding_3x">24dp</dimen>
+    <dimen name="photo_details">200dp</dimen>
+</resources>
